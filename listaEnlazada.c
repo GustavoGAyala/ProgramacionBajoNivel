@@ -10,6 +10,8 @@
 /*IMPLEMENTACION DE UN NODO Y SU SIGUIENTE*/
 typedef struct Nodo{
     int valor;
+    char name;
+    char prioridad;
     struct Nodo *sig;
 
 }Nodo;
@@ -17,15 +19,15 @@ typedef struct Nodo{
 /*El primer elemento, el último elemento, el número de elementos.
  * Para ello será utilizado otra estructura "Lista"
 */
-        typedef struct ListaIdentificar {
+typedef struct ListaIdentificar {
 
-            Nodo *inicio;
+    Nodo *inicio;
 
-            Nodo *fin;
+    Nodo *fin;
 
-            int tamaño;
+    int tamaño;
 
-        }Lista;
+}Lista;
 
   /*El puntero inicio contendrá la dirección del primer elemento de la lista.
    * El puntero fin contendrá la dirección del último elemento de la lista.
@@ -47,10 +49,28 @@ void inicializacion (Lista *lista){
     tamaño = 0;
 
 }
+void agregarNodoALista (Nodo uno, Lista x ) {
 
+}
+void imprimirLista (Lista *Lista) {
+    //imprimir los valores de la lista enlazada
+    Nodo *actual = Lista->inicio->valor;
+    while (actual != NULL) {
+        printf("nombre: %s prioridad: %s valor %d", actual->name,actual->prioridad,actual->valor);
+        if(Lista->fin->name==actual->name) {
+            actual = NULL;
+        }
+        actual = actual->sig;
+    }
+
+}
 
 
 int main(){
+
+    Lista nuevaLista;
+    inicializacion(nuevaLista);
+
     //reservar espacio para los nodos
     Nodo *cabeza = (Nodo*)malloc(sizeof (Nodo));
     Nodo *nodoA = (Nodo*)malloc(sizeof (Nodo));
@@ -65,11 +85,6 @@ int main(){
     nodoB->valor = 20;
     nodoC->sig = NULL;
     nodoC->valor = 25;
-    //imprimir los valores de la lista enlazada
-    Nodo *actual = cabeza;
-    while(actual!=NULL){
-        printf("valor %d", actual->valor);
-        actual = actual->sig;
     }
 
     return 0;
