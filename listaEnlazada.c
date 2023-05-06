@@ -5,20 +5,15 @@
  * Lista Enlazada
  * */
 
-#include <stadio.h>
-#include <stdlib.h>
-/*IMPLEMENTACION DE UN NODO Y SU SIGUIENTE*/
-typedef struct Nodo{
-    int valor;
-    char name;
-    char prioridad;
-    struct Nodo *sig;
+#include <stdio.h>
 
-}Nodo;
+#include <string.h>
+
+
 
 /*El primer elemento, el último elemento, el número de elementos.
  * Para ello será utilizado otra estructura "Lista"
-*/
+*//*
 typedef struct ListaIdentificar {
 
     Nodo *inicio;
@@ -27,7 +22,7 @@ typedef struct ListaIdentificar {
 
     int tamaño;
 
-}Lista;
+}Lista;*/
 
   /*El puntero inicio contendrá la dirección del primer elemento de la lista.
    * El puntero fin contendrá la dirección del último elemento de la lista.
@@ -39,7 +34,7 @@ typedef struct ListaIdentificar {
 /*
  * Esta operación debe ser hecha antes de cualquier otra operación sobre la lista.
  * Esta inicializa el puntero inicio y el puntero fin con el puntero NULL, y el tamaño con el valor 0.
-*/
+*//*
 void inicializacion (Lista *lista){
 
     lista->inicio = NULL;
@@ -48,18 +43,48 @@ void inicializacion (Lista *lista){
 
     tamaño = 0;
 
-}
-void agregarNodoALista (Nodo uno, Lista x ) {
+}*/
+
+/*IMPLEMENTACION DE UN NODO Y SU SIGUIENTE*/
+typedef struct Nodo{
+    char name;
+    int edad;
+    struct Nodo *sig;
+
+}Nodo;
+
+/*Creacion  de un Nodo (persona/cliente)*/
+Nodo *crearNodo(char nombre,int edad){
+    Nodo *aux = (Nodo*) malloc(sizeof(Nodo));
+    aux->edad = edad;
+    /*aux->name = scanf("%s",nombre);*/
+    strcpy(aux->name, nombre);
+    aux->sig = NULL;
+    return aux;
 
 }
-void imprimirLista (Lista *Lista) {
+
+/*Inicia con un Puntero de tipo Nodo que apunta  NULL, el inicio de la lista queda creada y vacia*/
+Nodo *inicializarLista() {
+    return NULL;
+}
+
+Nodo *agregarNodoALista (Nodo *lista, Nodo *nuevo) {
+    if(nuevo == NULL) {
+        lista = nuevo;
+    }
+    else {
+        nuevo->sig = lista;
+        lista = nuevo;
+    }
+    return lista;
+
+}
+void imprimirLista (Nodo *lista) {
     //imprimir los valores de la lista enlazada
-    Nodo *actual = Lista->inicio->valor;
+    Nodo *actual = lista;
     while (actual != NULL) {
-        printf("nombre: %s prioridad: %s valor %d", actual->name,actual->prioridad,actual->valor);
-        if(Lista->fin->name==actual->name) {
-            actual = NULL;
-        }
+        printf("nombre: %s Edad: %d", actual->name,actual->edad);
         actual = actual->sig;
     }
 
@@ -67,7 +92,7 @@ void imprimirLista (Lista *Lista) {
 
 
 int main(){
-
+/*
     Lista nuevaLista;
     inicializacion(nuevaLista);
 
@@ -86,6 +111,11 @@ int main(){
     nodoC->sig = NULL;
     nodoC->valor = 25;
     }
+*/
 
+    Nodo *lista = inicializarLista();
+    Nodo *nuevoNodo = crearNodo((char)"Gustavo", (int)37);
+    agregarNodoALista(lista,nuevoNodo);
+    imprimirLista(lista);
     return 0;
 }
