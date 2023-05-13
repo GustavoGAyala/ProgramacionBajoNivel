@@ -56,31 +56,37 @@ Debe haber funciones para:
 -Eliminar un elemento N de la lista
 -Imprimir la lista
 */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpointer-to-int-cast"
 /*IMPLEMENTACION DE UN NODO Y SU SIGUIENTE*/
-typedef struct Nodo{
+typedef struct{
     char name;
     int edad;
-    struct Nodo *sig;
 
-}Nodo;
+
+}Persona;
+typedef struct{
+    Persona p;
+    struct NodoPersona *sig;
+}NodoPersona;
 
 /*Creacion  de un Nodo (persona/cliente)*/
-Nodo *crearNodo(char nombre,int edad){
-    Nodo *aux = (Nodo*) malloc(sizeof(Nodo));
-    aux->edad = edad;
-    /*aux->name = scanf("%s",nombre);*/
-    aux->name = (char) gets((char *) nombre);
+NodoPersona *crearNodo(char nombre,int edad){
+    NodoPersona *aux = (NodoPersona*) malloc(sizeof(NodoPersona));
+    aux->p.edad = edad;
+    aux->p.name = scanf("%s",nombre);
+    /*aux->p.name = *gets(nombre);*/
     aux->sig = NULL;
     return aux;
 
 }
 
 /*Inicia con un Puntero de tipo Nodo que apunta  NULL, el inicio de la lista queda creada y vacia*/
-Nodo *inicializarLista() {
+NodoPersona inicializarLista() {
     return NULL;
 }
 
-void agregarNodoALista (Nodo **lista, Nodo *nuevo) {
+void agregarNodoALista (NodoPersona **lista, NodoPersona *nuevo) {
     if(nuevo == NULL) {
         *lista = nuevo;
     }
@@ -90,11 +96,11 @@ void agregarNodoALista (Nodo **lista, Nodo *nuevo) {
     }
 
 }
-void imprimirLista (Nodo **lista) {
+void imprimirLista (NodoPersona **lista) {
     //imprimir los valores de la lista enlazada
-    Nodo *actual = *lista;
+    NodoPersona *actual = *lista;
     while (actual != NULL) {
-        printf("nombre: %s Edad: %d", actual->name,actual->edad);
+        printf("nombre: %s Edad: %d", actual->p.name,actual->p.edad);
         actual = actual->sig;
     }
 
@@ -123,9 +129,10 @@ int main(){
     }
 */
 
-    Nodo lista = inicializarLista();
-    Nodo *nuevoNodo = crearNodo((char)"Gustavo", (int)37);
-    agregarNodoALista(lista,nuevoNodo);
-    imprimirLista(lista);
+    NodoPersona lista = inicializarLista();
+    NodoPersona *nuevoNodo = crearNodo((char)"Gustavo", (int)37);
+    agregarNodoALista(*lista,*nuevoNodo);
+    imprimirLista(*lista);
     return 0;
 }
+#pragma clang diagnostic pop
