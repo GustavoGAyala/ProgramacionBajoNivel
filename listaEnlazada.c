@@ -6,7 +6,7 @@
  * */
 
 #include <stdio.h>
-
+#include <stdlib.h>
 #include <string.h>
 
 
@@ -45,6 +45,17 @@ void inicializacion (Lista *lista){
 
 }*/
 
+/*
+Parte 1:
+Hacer la implementación de una lista enlazada.
+Debe haber funciones para:
+-Crear e inicializar la lista
+-Agregar un elemento
+-Obtener el largo de la lista
+-Obtener un elemento N de la lista
+-Eliminar un elemento N de la lista
+-Imprimir la lista
+*/
 /*IMPLEMENTACION DE UN NODO Y SU SIGUIENTE*/
 typedef struct Nodo{
     char name;
@@ -58,7 +69,7 @@ Nodo *crearNodo(char nombre,int edad){
     Nodo *aux = (Nodo*) malloc(sizeof(Nodo));
     aux->edad = edad;
     /*aux->name = scanf("%s",nombre);*/
-    strcpy(aux->name, nombre);
+    aux->name = (char) gets((char *) nombre);
     aux->sig = NULL;
     return aux;
 
@@ -69,20 +80,19 @@ Nodo *inicializarLista() {
     return NULL;
 }
 
-Nodo *agregarNodoALista (Nodo *lista, Nodo *nuevo) {
+void agregarNodoALista (Nodo **lista, Nodo *nuevo) {
     if(nuevo == NULL) {
-        lista = nuevo;
+        *lista = nuevo;
     }
     else {
-        nuevo->sig = lista;
-        lista = nuevo;
+        nuevo->sig = *lista;
+        *lista = nuevo;
     }
-    return lista;
 
 }
-void imprimirLista (Nodo *lista) {
+void imprimirLista (Nodo **lista) {
     //imprimir los valores de la lista enlazada
-    Nodo *actual = lista;
+    Nodo *actual = *lista;
     while (actual != NULL) {
         printf("nombre: %s Edad: %d", actual->name,actual->edad);
         actual = actual->sig;
@@ -113,7 +123,7 @@ int main(){
     }
 */
 
-    Nodo *lista = inicializarLista();
+    Nodo lista = inicializarLista();
     Nodo *nuevoNodo = crearNodo((char)"Gustavo", (int)37);
     agregarNodoALista(lista,nuevoNodo);
     imprimirLista(lista);
