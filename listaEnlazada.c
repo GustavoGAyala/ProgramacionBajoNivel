@@ -27,31 +27,40 @@ typedef struct Persona{
     int edad;
     struct Persona *sig;
 }Persona;
+/*inicializacion de lista en NULL*/
+Persona * inicializarLista(){
+    return NULL;
+}
 /*Creacion  de un Nodo (persona/cliente)*/
-Persona *crearPersona(char nombre, int edad){
-    Persona *aux;
-    aux = malloc(sizeof(Persona));
+Persona * crearPersona(char nombre[10], int edad){
+    Persona *aux = malloc(sizeof(Persona));
+
     aux->edad = edad;
-    aux->name = scanf((const char *) nombre);
+    aux->name = scanf("%s",nombre);
     /*aux->name = *gets(nombre);*/
     aux->sig = NULL;
     return aux;
 }
-void agregarNodoALista (Persona **lista, Persona *nuevaPersona) {
+void agregarNodoALista (Persona *lista, Persona *nuevaPersona) {
+
     if(nuevaPersona == NULL) {
-        *lista = nuevaPersona;
+        lista = nuevaPersona;
     }
     else {
-        nuevaPersona->sig = *lista;
-        *lista = nuevaPersona;
+        nuevaPersona->sig = lista;
+        lista = nuevaPersona;
     }
 }
-void eliminarElemntoDeLaLista(Persona **lista, Persona *quienElimina){
-    if(*lista.)
+void eliminarElemntoDeLaLista(Persona *lista, char nameDelete){
+    Persona * aux = lista;
+    if(strcmp(&aux->name,&nameDelete)==0){
+
+    }
+
 }
-void imprimirLista (Persona **lista) {
+void imprimirLista (Persona *lista) {
     //imprimir los valores de la lista enlazada
-    Persona *actual = *lista;
+    Persona *actual = lista;
     while (actual != NULL) {
         printf("nombre: %s Edad: %d", actual->name,actual->edad);
         actual = actual->sig;
@@ -59,12 +68,9 @@ void imprimirLista (Persona **lista) {
 }
 int main(){
 
-    Persona *pVoid;
-    pVoid = malloc(sizeof (Persona));
-    pVoid = crearPersona((char) "listaDePersonas", 01);
+    Persona *pVoid = inicializarLista();
     Persona *pPersona;
-    pPersona = malloc(sizeof (Persona));
-    pPersona = crearPersona((char) "Gustavo", 37);
+    pPersona = crearPersona("Gustavo", 37);
     agregarNodoALista(pVoid, pPersona);
     imprimirLista(pVoid);
     return 0;
